@@ -1,0 +1,38 @@
+#!/bin/bash
+
+cd backend
+python --version
+
+if [[ ! -d "alx_venv" ]]; then
+	python -m  venv alx_venv
+
+	pip install -r requirements.txt
+fi;
+
+echo "alx_venv is your virtual environment"
+
+sleep 3
+
+if [[ "$(ls alx_venv)" =~ "bin" ]]; then
+	echo "cd backend && source alx_venv/bin/activate to activate" 
+else
+	echo " cd backend && source alx_venv/Scripts/activate  to activate"
+fi;
+
+
+cd ..
+cat <<EOF >> .gitignore
+backend/alx_venv
+frontend/node_modules
+**/*.pyc
+**/mypy_cache**
+EOF
+
+cd  frontend
+if [[ ! -d "node_modules" ]]; then
+
+	npm install
+fi;
+
+
+

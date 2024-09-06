@@ -1,0 +1,39 @@
+This is the endpoint for user upload
+---
+tags:
+  - User login
+parameters:
+  - in: formData
+    name: profile_image
+    type: file
+    description: "The profile image to upload."
+    required: true
+consumes:
+  - multipart/form-data
+produces:
+  - application/json     
+      
+
+responses:
+  400:
+    description: 
+      objetc: 
+        error: "Login failed"
+  200:
+    description: request executed successfully
+    schema:
+      type: array
+      items:
+        properties:
+          sucess:
+            type: string
+            description: time of creation of the instance
+          error:
+             type: string
+             description: time of last update of the instance
+          user_id:
+            type: string
+            description: The uuid of the instance
+          email:
+             type: string
+             description: amenity name

@@ -1,0 +1,68 @@
+This is the endpoint for user login
+---
+tags:
+  - User Registration
+parameters:
+  - name: body
+    in: body
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      first_name:
+        type: string
+      middle_name:
+        type: string
+      last_name:
+        type: string
+      date_of_birth:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      street:
+        type: string
+      profile_image:
+        type: string
+      gender:
+        type: string
+      zip_code:
+        type: string
+responses:
+  400:
+    description: 
+      object :
+        success: ''
+        user_id: ''
+        email: ''
+        error: 'error details'  
+
+  200:
+    description: 
+      object :
+        success: 'success detailed'
+        user_id: ''
+        email: ''
+        error: ''
+    schema:
+      type: array
+      items:
+        properties:
+          first_name:
+             type: string
+             description: first_name of  the user
+          middle_name:
+             type: string
+             description: middle_name of the user
+          last_name:
+             type: string
+             description: last_name of the user
+          gender:
+             type: string
+             description: get the of user 
+          email:
+            type: string
+            description: email  of the user
+          password: password of the user

@@ -1,0 +1,16 @@
+[tool.black]
+line-length = 88
+
+
+[tool.mypy]
+python_version = 3.8
+ignore_missing_imports = true
+exclude = "^test_.*\\.py$"
+disallow_untyped_calls = false
+disallow_untyped_defs = false
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip = ["^tests/.*", ".*env.*"]
+

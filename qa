@@ -1,0 +1,53 @@
+#!/usr/bin/bash
+
+# Exit on errors and unset variables
+set -eou pipefail
+
+# Get the directory of the script
+script_directory=$(readlink -f "$0")
+script_directory=${script_directory%/*}
+
+black "$script_directory/app.py"
+flake8 "$script_directory/app.py"
+mypy "$script_directory/app.py"
+isort "$script_directory/app.py"
+
+# Function to process Python files
+process_files() {
+    local dir=$1
+
+
+    echo "Processing directory: $dir"
+
+    # Loop through all .py files in the directory
+    for file in "$dir"/*.py; do
+        if [ -f "$file" ]; then
+            echo "Formatting file: $file"
+            black "$file"
+            echo "Linting file: $file"
+	    flake8 --benchmark "$file"
+	    echo "Checking type"
+	    mypy "$file"
+	    echo "ordering the import module and packages"
+	    isort "$file"
+        fi
+    done
+}
+
+# Recursively process directories
+process_directories() {
+    local base_dir=$1
+    # Loop through all directories in the base directory
+    for dir in "$base_dir"/*/; do
+        if [ -d "$dir" ] && [[ ! "$dir" =~ /*env*/ ]]; then
+            # Process Python files in this directory
+            process_files "$dir"
+            # Recursively process subdirectories
+            process_directories "$dir"
+        fi
+    done
+}
+
+# Start processing from the script's directory
+process_directories "$script_directory"
+

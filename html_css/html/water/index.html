@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <title>HTML</title>
+        <link href="../../css/water/water.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <canvas></canvas>
+         <!-- <div class="bo"></div> -->
+
+          <div class="down" >
+             <div>
+                <div class="selected"></div>
+                <input type="text" class="select-text"/>
+             </div>
+
+             <div class="li">
+                <p key="1">Paragraph 3.</p>
+    
+                <p key="2">Paragraph 4.</p>
+
+                <p key="3">Paragraph 5.</p>
+    
+                <p key="4">Paragraph 6.</p>
+                <p key="5">Paragraph 7.</p>
+    
+                <p key="6">Paragraph 8.</p>
+             </div>
+          </div>
+          
+             <div class="move"></div>
+    </body>
+    <script>
+        window.addEventListener("load", function(e){
+            selectionboxSearch(document.querySelector(".select-text"),document.querySelector(".down") )
+             e.preventDefault()
+              function move(){
+                document.querySelector(".move").addEventListener("mousedown", (e)=>{
+                    console.log("dowm",e, e.currentTarget)
+                })
+
+                document.querySelector("body").addEventListener("mousemove", (e)=>{
+                   // console.log(e.clientX, e.clientY)
+                    document.querySelector(".move").setAttribute("style",`top: ${e.clientX}px; left: ${e.clientY}px`)
+                })
+              }
+
+              move()
+        })
+
+
+        const findUniqueFilenames = filename => {
+    let results = ""
+    let fileList = filename.split("|")
+    console.log(fileList)
+    for (let i = 0; i <fileList.length; i++) {
+        console.log(i)
+        let file =  fileList[i].split(".")[0]
+        if (!filename.match(file)) results += `${file}|`    
+            
+    }
+    
+  return results;
+  console.log(results,"gcg")
+};
+
+
+findUniqueFilenames("foo.mp3|bar.txt|baz.mp3")
+
+
+    </script>
+
+<script>
+let cx = document.querySelector("canvas").getContext("2d");
+cx.beginPath();
+cx.moveTo(50, 10);
+cx.lineTo(10, 70);
+cx.lineTo(90, 70);
+cx.fill();
+
+function selectionboxSearch(element, targets)
+{   
+     element.addEventListener("input", (e)=>{
+         let txt = e.currentTarget.value.toLowerCase()
+       
+         Array.from(targets.querySelector(".li").children).forEach(element => {
+            if (!element.innerText.toLowerCase().match(txt)) {
+                element.style.display="none"
+            }else{
+                element.style.display="block"
+            }
+          
+         });
+
+     })
+     /////////////////
+    targets.addEventListener("click", (e)=>{
+        let el = e.target
+        let wrapper = e.currentTarget
+        if (el.nodeName == "P")
+        {
+            let txt = el.innerText
+            console.dir(el)
+            document.querySelector(".selected").innerHTML += `<span key="${el.getAttribute('key')}">${txt} <i class="remove" style="cursor:pointer">x</i></span>`
+            el.setAttribute("style", "pointer-events:none; opacity:0.5")
+        }
+
+        if (el.nodeName === "I")
+        {
+             console.log(wrapper.querySelector('.li'), "aff", el.parentElement.getAttribute('key'))
+             wrapper.querySelector('.li').querySelector(`p[key='${el.parentElement.getAttribute('key')}']`).removeAttribute("style")
+             el.parentElement.remove()
+        }
+
+    })
+
+    //////////////////////////////
+
+    
+}
+
+
+console.log(typeof "" === "string")
+console.log(null == undefined)
+</script>
+</html>
