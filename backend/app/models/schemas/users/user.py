@@ -1,8 +1,8 @@
 #!/usr/bin/python
 """ holds class Users"""
-from models.schemas.base import BaseModel
-from models.storage_engine import storage
-from models.storage_engine.db import Base
+from models.schemas.base import BaseModel  # type: ignore
+from models.storage_engine import storage  # type: ignore
+from models.storage_engine.db import Base  # type: ignore
 from sqlalchemy import Column, DateTime, String  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 
@@ -29,4 +29,7 @@ class Users(BaseModel, Base):
         super().__init__(**kward)
 
 
+"""create table"""
+
 Base.metadata.create_all(storage.get_engine())
+ 

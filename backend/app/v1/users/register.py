@@ -3,12 +3,12 @@ import uuid
 from flasgger.utils import swag_from  # type: ignore
 from flask import request  # type: ignore
 from flask_restful import Resource, marshal_with  # type: ignore
-from libs.password import hash_password
-from models.schemas.general.address import Addresses
-from models.schemas.users.user import Users
-from models.storage_engine import storage
+from libs.password import hash_password  # type: ignore
+from models.schemas.general.address import Addresses  # type: ignore
+from models.schemas.users.user import Users  # type: ignore
+from models.storage_engine import storage  # type: ignore
 from sqlalchemy import select  # type: ignore
-from v1.response_object import response_obj_template
+from v1.response_object import response_obj_template  # type: ignore
 
 """ Define the expected structure for success and error responses"""
 

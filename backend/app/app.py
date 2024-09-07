@@ -1,14 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 """ Flask Application """
 from os import environ, makedirs, path
 
 from dotenv import load_dotenv
 from flasgger import Swagger  # type: ignore
-from flask import Flask, jsonify, make_response, send_from_directory  # type: ignore
+from flask import (Flask, jsonify,  # type: ignore
+                   make_response,
+                   send_from_directory,
+                   )
 from flask_cors import CORS  # type: ignore
 from flask_restful import Api, Resource  # type: ignore
-from v1 import token_route
-from v1.users import users_route
+from v1 import token_route  # type: ignore
+from v1.users import users_route  # type: ignore
+from libs.upload_file import upload_from_multipart  # type: ignore
 
 load_dotenv()
 app = Flask(__name__)
@@ -58,6 +62,13 @@ def download_file(filename):
     )
 
 
+@app.route('/test_upload', methods=["POST"])
+def handel_upload():
+    path = upload_from_multipart()
+    print(path[1] , "tyt")
+    return jsonify({"a": str(path)})
+    
+    
 Swagger(app)
 api = Api(app)
 

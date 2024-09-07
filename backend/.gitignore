@@ -1,0 +1,4 @@
+backend/alx_venv
+frontend/node_modules
+**/*.pyc
+**/mypy_cache**
