@@ -32,4 +32,3 @@ class Users(BaseModel, Base):
 """create table"""
 
 Base.metadata.create_all(storage.get_engine())
- 

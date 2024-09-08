@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """ Flask Application """
-from os import environ, makedirs, path, getenv
+from datetime import timedelta
+from os import environ, getenv, makedirs, path
 
 from dotenv import load_dotenv
 from flasgger import Swagger  # type: ignore
@@ -11,9 +12,7 @@ from flask_restful import Api, Resource  # type: ignore
 from libs.upload_file import upload_from_multipart  # type: ignore
 from resouces import resource_product_revenue_route  # type: ignore
 from v1 import token_route  # type: ignore
-from v1.users import users_route  # type: ignorepip list 
-from flask_session import Session
-from datetime import timedelta
+from v1.users import users_route  # type: ignore
 
 load_dotenv()
 app = Flask(__name__)
@@ -74,21 +73,24 @@ Swagger(app)
 api = Api(app)
 
 # App configurations
-app.config['SECRET_KEY'] = getenv("SECRET_KEY")
-app.config['JWT_SECRET_KEY'] = getenv("JWT_SECRET_KEY")
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)  # Access token expires in 15 minutes
-app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)     # Refresh token expires in 30 days
+app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config["JWT_SECRET_KEY"] = getenv("JWT_SECRET_KEY")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(
+    minutes=15
+)  # Access token expires in 15 minutes
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(
+    days=30
+)  # Refresh token expires in 30 days
 
 # Flask-Session config for storing refresh tokens in cookies
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_PERMANENT'] = False
-app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_COOKIE_NAME'] = getenv("FARM_APP")
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+app.config["SESSION_COOKIE_NAME"] = getenv("FARM_APP")
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 
 # Initialize extensions
 
-Session(app)
 
 class HelloWorld(Resource):
     def get(self):

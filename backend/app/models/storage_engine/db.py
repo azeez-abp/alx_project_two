@@ -4,10 +4,11 @@ Enterprise-level implementation of DBStorage class to interact with a MySQL data
 """
 
 import logging
+from contextlib import contextmanager
 from os import getenv
+
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
-from contextlib import contextmanager
 
 # Initialize Base for model declarations
 Base = declarative_base()
@@ -20,7 +21,9 @@ MYSQL_DB = getenv("MYSQL_DB")
 APP_ENV = getenv("APP_ENV", "development")
 
 # Configure logging for enterprise-level code
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -39,9 +42,9 @@ class DBStorage:
             self.__engine = create_engine(
                 f"mysql+mysqldb://{MYSQL_USER}:{MYSQL_PWD}@{MYSQL_HOST}/{MYSQL_DB}",
                 pool_pre_ping=True,
-                echo=False  # Disable SQL echo in production for performance and security
+                echo=False,  # Disable SQL echo in production for performance and security
             )
-            
+
             if APP_ENV == "test":
                 # Drop all tables in test environment for fresh testing
                 Base.metadata.drop_all(self.__engine)
@@ -144,4 +147,6 @@ class DBStorage:
         if self.__session:
             return self.__session
         else:
-            raise RuntimeError("Session is not initialized. Call reload() to initialize the session.")
+            raise RuntimeError(
+                "Session is not initialized. Call reload() to initialize the session."
+            )

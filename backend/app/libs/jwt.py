@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta, timezone
-from os import getenv
 
 import jwt  # type: ignore
 
@@ -17,21 +16,17 @@ Logic
 """
 
 
-def encodes_(user_id: str,
-             email: str,
-             time_in_minute: int,
-             secret: str
-             ) -> str:
+def encodes_(user_id: str, email: str, time_in_minute: int, secret: str) -> str:
 
     try:
         payload_data = {
             "id": user_id,
             "email": email,
             "exp": (
-                datetime.now(timezone.utc) +
-                timedelta(minutes=time_in_minute)).timestamp(),
+                datetime.now(timezone.utc) + timedelta(minutes=time_in_minute)
+            ).timestamp(),
         }
-    
+
         # paths = "~/.ssh/id_rsa"
         # with open(paths, "rb") as key_file:  # Use 'rb' to read as bytes
         #     private_key = key_file.read()
@@ -41,11 +36,7 @@ def encodes_(user_id: str,
         #     password=b"abp",  # Ensure this is the correct
         # password for your key
         # )
-
-        algorithm = "HS256"  # HMAC SHA-256 algorithm
-        token = jwt.encode(payload=payload_data,
-                           key=str(secret),
-                           algorithm=algorithm)
+        token = jwt.encode(payload=payload_data, key=str(secret), algorithm="HS256")
 
         return token
     except Exception as e:
@@ -62,7 +53,7 @@ def decode_(token: str, secret: str):
         data = jwt.decode(
             jwt=token,
             key=str(secret),
-            algorithms="HS256",
+            algorithms=["HS256"],
         )
 
         return data, 200

@@ -2,7 +2,6 @@
 """"Module for setting cookie"""
 from datetime import datetime, timedelta, timezone
 
-
 from flask import Flask  # type: ignore
 from libs.response_body import responseObject
 
@@ -47,7 +46,7 @@ class CookieHandler:
                 samesite=samesite,  # put this in production
                 path="/",
                 domain="localhost",
-            )  #set for domain name
+            )  # set for domain name
             response.set_cookie(
                 name,
                 value + "__" + str(expires.timestamp()),

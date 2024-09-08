@@ -1,13 +1,7 @@
 from models.schemas.base import BaseModel  # type: ignore
-from models.storage_engine.db import Base  # type: ignore
 from models.storage_engine import storage  # type: ignore
-from sqlalchemy import (Column,  # type: ignore
-                        Integer,
-                        String,
-                        Float,
-                        Text,
-                        Date
-                        )
+from models.storage_engine.db import Base  # type: ignore
+from sqlalchemy import Column, Date, Float, Integer, String, Text  # type: ignore
 
 """This table are created if the file that use them is added to root file app.py"""
 
@@ -69,6 +63,6 @@ class Session(BaseModel, Base):
 
     def __init__(self, **kward):
         super().__init__(**kward)
-         
+
 
 Base.metadata.create_all(storage.get_engine())

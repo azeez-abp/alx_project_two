@@ -4,11 +4,10 @@ import os
 import re
 from uuid import uuid4
 
+from flask import jsonify, request  # type: ignore
 from PIL import Image  # type: ignore
 from PIL.ExifTags import TAGS  # type: ignore
 from werkzeug.datastructures import FileStorage  # type: ignore
-
-from flask import request, jsonify  # type: ignore
 
 UPLOAD_FOLDER = "..\\uploads\\"
 
@@ -112,7 +111,6 @@ def upload_image_base64(request):
     data = request.get_json()
     image_base64 = data.get("image")
     print(image_base64)
-    ext = image_base64["name"].slipt(".")[-1]
 
     if not image_base64:
         return jsonify({"error": "No image data provided"}), 400
