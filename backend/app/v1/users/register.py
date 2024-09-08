@@ -9,6 +9,7 @@ from models.schemas.users.user import Users  # type: ignore
 from models.storage_engine import storage  # type: ignore
 from sqlalchemy import select  # type: ignore
 from v1.response_object import response_obj_template  # type: ignore
+from libs.request_to_json import convert_request_to_json  # type: ignore
 
 """ Define the expected structure for success and error responses"""
 
@@ -20,8 +21,8 @@ class UserRegister(Resource):
     @swag_from("documentation/register.yml", methods=["POST"])
     def post(self):
         """Post methiod that handle user registration"""
-
-        data_all = request.get_json()
+        data_all = convert_request_to_json(request)
+       
         data = storage.get_instance().scalar(
             select(Users).where(Users.email == str(data_all["email"]))
         )

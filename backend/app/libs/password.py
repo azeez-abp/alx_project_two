@@ -21,4 +21,7 @@ def check_password(plain_text_password: str, hashed_password: str) -> bool:
     # Decode the base64 encoded hashed password
     decoded_hashed_password = base64.b64decode(hashed_password)
     # Check if the provided password matches the hashed password
-    return bcrypt.checkpw(plain_text_password.encode("utf-8"), decoded_hashed_password)
+    return bcrypt.checkpw(
+        plain_text_password.encode("utf-8"),
+        decoded_hashed_password
+        )

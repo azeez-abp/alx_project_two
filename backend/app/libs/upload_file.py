@@ -85,8 +85,7 @@ def upload_image(file_path, resize: bool = False, new_size=(300, 300)):
             # Generate a unique name for the output file
             unique_filename = f"{uuid4()}.{extension_name}"
             output_path = os.path.join("./app/", "uploads", unique_filename)
-            output_path_relative = os.path.join("../../uploads",
-                                                unique_filename)
+            output_path_relative = os.path.join("../../uploads", unique_filename)
             print(output_path_relative, "Is the path")
             """ Save the resized image to the specified path """
             img.save(output_path)
@@ -111,71 +110,88 @@ def upload_image(file_path, resize: bool = False, new_size=(300, 300)):
 def upload_image_base64(request):
     # Parse JSON data
     data = request.get_json()
-    image_base64 = data.get('image')
+    image_base64 = data.get("image")
     print(image_base64)
-    ext = image_base64['name'].slipt('.')[-1]
+    ext = image_base64["name"].slipt(".")[-1]
 
     if not image_base64:
-        return jsonify({'error': 'No image data provided'}), 400
+        return jsonify({"error": "No image data provided"}), 400
 
     try:
         # Decode the Base64 string
         image_data = base64.b64decode(image_base64)
-        
+
         # Open the image using Pillow
         image = Image.open(io.BytesIO(image_data))
-        
+
         # Save the image or process i t as needed
-        image.save('uploaded_image.png')  # Save the image as a PNG file
-        
-        return jsonify({'message': 'Image successfully uploaded'}), 200
+        image.save("uploaded_image.png")  # Save the image as a PNG file
+
+        return jsonify({"message": "Image successfully uploaded"}), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
-    
+        return jsonify({"error": str(e)}), 400
+
 
 def upload_images_multiple():
     # Parse JSON data
     data = request.get_json()
-    images_base64 = data.get('images')
+    images_base64 = data.get("images")
 
     if not images_base64 or not isinstance(images_base64, list):
-        return jsonify({'error': 'No image data provided\
-                        or data is not a list'}), 400
+        return (
+            jsonify(
+                {
+                    "error": "No image data provided\
+                        or data is not a list"
+                }
+            ),
+            400,
+        )
 
     results = []
-    
+
     for idx, image_base64 in enumerate(images_base64):
         try:
             # Decode the Base64 string
             image_data = base64.b64decode(image_base64)
-            
+
             # Open the image using Pillow
             image = Image.open(io.BytesIO(image_data))
-            
+
             # Save the image with a unique filename
-            filename = f'image_{idx + 1}.png'
+            filename = f"image_{idx + 1}.png"
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             image.save(file_path)
-            
-            results.append({'filename': filename, 'status': 'success'})
-        except Exception as e:
-            results.append({'filename': f'image_{idx + 1}.png',
-                            'status': 'failed', 'error': str(e)})
 
-    return jsonify({'results': results}), 200
+            results.append({"filename": filename, "status": "success"})
+        except Exception as e:
+            results.append(
+                {
+                    "filename": f"image_{idx + 1}.png",
+                    "status": "failed",
+                    "error": str(e),
+                }
+            )
+
+    return jsonify({"results": results}), 200
 
 
 def upload_from_multipart():
-    if 'image' in request.files:
-        image = request.files['image']
+    if "image" in request.files:
+        image = request.files["image"]
         print(image)
         if image:
             filename = image.filename
-            image.save('../uploads')
+            image.save("../uploads")
 
-            return jsonify({
-                    "message": "File successfully uploaded",
-                    "filename": filename,
-                    "content_type": image.content_type,
-                    "size": os.path.getsize("../uploads")
-                }), 200
+            return (
+                jsonify(
+                    {
+                        "message": "File successfully uploaded",
+                        "filename": filename,
+                        "content_type": image.content_type,
+                        "size": os.path.getsize("../uploads"),
+                    }
+                ),
+                200,
+            )

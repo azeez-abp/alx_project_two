@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse  # type: ignore
-from models import Product  # type: ignore
+from models.schemas.general.transaction import Product  # type: ignore
 
 
 parser = reqparse.RequestParser()
@@ -68,7 +68,7 @@ class ProductResource(Resource):
     def delete(self, product_id):
         product = Product.query.get(product_id)
         if product:
-            db.session.delete(product)
-            db.session.commit()
+            Product.delete(product)
+            Product.save()
             return {'message': 'Product deleted successfully'}, 200
         return {'message': 'Product not found'}, 404

@@ -156,7 +156,7 @@ const Register = () => {
            return setLoginState({...loginState,showLoader:true,error:true, info: err.error})
          } 
 
-         console.log(err, data)
+    
 
          if (data['error'] !== null )
           {
