@@ -18,7 +18,7 @@ export default function Home(): any {
       showLoader:false,
       error:false, 
       info:"", 
-      inputData:{email:"", password:""},
+      inputData:{otp:"", password:""},
       suc:false})
      
      const disble_button = {
@@ -33,11 +33,11 @@ export default function Home(): any {
  const signIn = (e: any) :boolean => {
     e.preventDefault()
     setLoginState({...loginState,showLoader:true,error:false})
-     console.log( loginState.inputData['email'] ,"rtyuiop")
+
     if (
-      loginState.inputData['email'] === ''
+      loginState.inputData['otp'] === ''
        || 
-       loginState.inputData['email'] ===  undefined
+       loginState.inputData['otp'] ===  undefined
        || 
       loginState.inputData['password']  === ''
       || 
@@ -48,16 +48,16 @@ export default function Home(): any {
         setLoginState({
           ...loginState,
           error:true,
-          info: "Email and password are required",
+          info: "otp and password are required",
           showLoader:false
         })
         return false
       }
   
 
-      makeRequest("users/login", loginState.inputData, (err, data)=>{
-        console.log( err, data)
-        if (err && err.error)
+      makeRequest("users/password-reset", loginState.inputData, (err, data)=>{
+      
+        if (err)
           {
            return setTimeout(()=>{
               setLoginState({...loginState,showLoader:false,error:true,info:err.message})
@@ -69,10 +69,10 @@ export default function Home(): any {
             setLoginState({...loginState,showLoader:false,error:false,info:"Login successful",suc:true})
           },3000)
 
-          localStorage.setItem("alx_token", data.token)
+        
           setTimeout(()=>{
             
-            router.push('/dashboard')
+            router.push('/login')
           },2000)
 
       }).catch(error=>{
@@ -103,7 +103,7 @@ const getInput = (e:any)=>{
           
 
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Sign in to your account
+            Reset Pasword
           </h2>
 
          
@@ -119,18 +119,18 @@ const getInput = (e:any)=>{
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-whute">
-                Email address
+              <label htmlFor="otp" className="block text-sm font-medium leading-6 text-whute">
+                otp from your email
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="otp"
+                  name="otp"
+                  type="otp"
+                  autoComplete="otp"
                   onInput={(e)=>getInput(e)}
                   required
-                  placeholder="Enter Email"
+                  placeholder="Enter otp"
                   className="block bg-transparent pl-5 pr-5  w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -141,9 +141,7 @@ const getInput = (e:any)=>{
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
                   Password
                 </label>
-                <div className="text-sm">
-                <Link href="/request-password-reset" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</Link>
-                </div>
+               
               </div>
               <div className="mt-2">
                 <input
@@ -166,17 +164,7 @@ const getInput = (e:any)=>{
               </Button> 
             </div>
           </form>
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <Link href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Join as worker in the the farm
-            </Link>
-
-             <br/>
-            <Link href="/request-password-reset" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Reset Password
-            </Link>
-          </p>
+        
         
         </div>
       </div>

@@ -14,6 +14,7 @@ class CheckToken(Resource):
     def post(self):
         header = request.headers
         # print(decode_(header['Authorization']), "Header")
+        print(header, "HEADER")
 
         if "Authorization" not in header:
             return responseObject(False, True, "Bad header"), 400

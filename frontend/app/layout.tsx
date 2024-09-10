@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <input  className='toggle theme-controller' type='checkbox' value={'mytheme'}/>
+      {/* <input  className='toggle theme-controller' type='checkbox' value={'mytheme'}/> */}
         {children}
         <script src="./global.js"></script>
       </body>

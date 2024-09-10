@@ -51,7 +51,7 @@ class UserLogin(Resource):
             print(json_data_refresh)
 
             response = make_response(
-                jsonify(responseObject(True, False, {"data": json_data})), 200
+                jsonify(responseObject(True, False, {"token": json_data})), 200
             )
             response.headers["Content-Type"] = "application/json"
             CookieHandler.set_cookie(
@@ -87,7 +87,7 @@ class UserLogin(Resource):
                     .values(session_token=json_data_refresh)
                 )
                 s.commit()
-                print(up, "Up")
+                
             return response
         except Exception as e:
             return responseObject(False, True, {"message": str(e)})

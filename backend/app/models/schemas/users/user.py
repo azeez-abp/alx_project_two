@@ -20,6 +20,7 @@ class Users(BaseModel, Base):
     password = Column(String(225), nullable=False)  # Changed to LargeBinary
     gender = Column(String(15), nullable=False)
     date_of_birth = Column(DateTime, nullable=False)
+    otp = Column(String(20))
     addresses = relationship(
         "Addresses", backref="users", cascade="all, delete, delete-orphan"
     )

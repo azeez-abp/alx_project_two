@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { CheckToken } from '@/components/CheckToken'
+import Sidebar from '@/components/Sidebar'
 
 const Dashboard = () => {
 
@@ -8,13 +9,21 @@ const Dashboard = () => {
  
   return (
     <CheckToken>
-         <div>
+        <div>
          <div className="side">
-        <div className="mover"></div>
+         <div className="mover"></div>
+       
+          <Sidebar />
+
+
         </div>
     
-    <div className="body"></div>
-    <div className="per"></div>
+    <div className="body" style={{color:"#000"}}>
+
+        Wecome body
+    </div>
+
+    {/* <div className="per"></div> */}
     
           
 

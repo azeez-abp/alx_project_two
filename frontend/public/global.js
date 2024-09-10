@@ -59,6 +59,16 @@ function changeDimensionNew() {
         upEvent();
     });
 }
-window.addEventListener("DOMContentLoaded", ()=>{changeDimensionNew();} )
+
+window.addEventListener("DOMContentLoaded", ()=>{
+    const it  = setInterval(()=>{
+        if(document.querySelector("[is-ready='READY']")) {
+            changeDimensionNew()
+            clearInterval(it)
+        }
+           
+    }, 200)
+
+} ) 
 
 

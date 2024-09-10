@@ -30,7 +30,8 @@ class EmailService:
         self.from_email = from_email
         self.from_email_password = from_email_password
 
-    def send_html_email(self, subject: str, html_body: str, to_email: str) -> None:
+    def send_html_email(self, subject: str, html_body: str,
+                        to_email: str) -> bool:
         """
         Send an HTML email using SMTP.
 
@@ -48,17 +49,19 @@ class EmailService:
         msg.attach(MIMEText(html_body, "html"))
 
         try:
-            with smtplib.SMTP(self.SMTP_SERVER, self.SMTP_PORT, timeout=10) as server:
+            with smtplib.SMTP(self.SMTP_SERVER, self.SMTP_PORT,
+                              timeout=10) as server:
                 server.starttls()
                 server.login(self.from_email, self.from_email_password)
                 server.sendmail(self.from_email, to_email, msg.as_string())
                 logging.info(f"HTML email sent successfully to {to_email}")
+                return True
         except smtplib.SMTPAuthenticationError:
             logging.error(
                 "Authentication failed.\
                           Check your email or password."
             )
-            raise
+            return False
         except smtplib.SMTPConnectError:
             logging.error("Failed to connect to the SMTP server.")
             raise
