@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 
 export const CheckToken = ({...props}) => {
-
+ 
   const [err__, setErr] = useState(false)
   const [hasToken, setHasToken]  = useState(false)
   const [dotNum, setDotNum]  = useState('.')

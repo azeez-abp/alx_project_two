@@ -16,7 +16,6 @@ class RequestPasswordRest(Resource):
             return responseObject(False, True, "Email is reuired"), 404
         otp = otp = random.randint(100000, 999999) 
         
-
         try:
             has_session = storage.get_instance().scalar(
                 select(Users).where(Users.email == req_data.get("email"))
@@ -43,9 +42,6 @@ class RequestPasswordRest(Resource):
         except Exception as e:
             print(e)
             return responseObject(False, True, f'Error: {str(e)}'), 5000
-
-
-
 
 
 class PasswordRest(Resource):
