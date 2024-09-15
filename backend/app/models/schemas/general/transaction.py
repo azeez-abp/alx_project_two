@@ -1,9 +1,12 @@
 from models.schemas.base import BaseModel  # type: ignore
 from models.storage_engine import storage  # type: ignore
 from models.storage_engine.db import Base  # type: ignore
-from sqlalchemy import Column, Date, Float, Integer, String, Text  # type: ignore
+from sqlalchemy import Column, Date, Float, Integer, String, Text, Enum  # type: ignore
+from typing import Literal
 
 """This table are created if the file that use them is added to root file app.py"""
+
+StatusType = Literal["available", "out_of_stock", "discontinued"]
 
 
 class Product(BaseModel, Base):
@@ -19,6 +22,12 @@ class Product(BaseModel, Base):
     price_per_unit = Column(Float, nullable=False)
     category = Column(String(50), nullable=False)
     description = Column(Text)
+    status = Column(
+        Enum("available", "out_of_stock", "discontinued", name="product_status"),
+        default="available",
+       # nullable=False
+    )
+
 
     def __init__(self, **kward):
         """Initializes user"""

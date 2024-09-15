@@ -40,7 +40,7 @@ class ProductResource(Resource):
             return responseObject(False, True, str(e))
  
     def post(self):
-        args = parser.parse_args()
+        args = request.get_jsoN()
         print("POST CALL")
         try:
             new_product = Product(

@@ -5,6 +5,7 @@ import Sidebar from '@/components/Sidebar'
 import AddEnpend from '@/components/expend/AddEnpend'
 import AddProduct from '@/components/product/AddProduct'
 import { usePathname } from 'next/navigation'
+import ListProduct from '@/components/product/ListProduct'
 
 
 const Dashboard = ({...props}) => {
@@ -22,6 +23,7 @@ const Dashboard = ({...props}) => {
             <div className="body h-full flex items-center justify-center" style={{color:"#000"}}>
                 {pathname === '/add-expend' && <AddEnpend /> } 
                 {pathname === '/add-product' &&  <AddProduct/> }   
+                {pathname === '/list-product' &&  <ListProduct/> }  
                
             </div> 
          </div>

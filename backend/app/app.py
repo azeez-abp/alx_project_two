@@ -13,7 +13,7 @@ from libs.upload_file import upload_from_multipart  # type: ignore
 from resouces import resource_product_revenue_route  # type: ignore
 from v1 import token_route  # type: ignore
 from v1.users import users_route  # type: ignore
-from v1.products import products_route
+# from v1.products import products_route
 
 load_dotenv()
 app = Flask(__name__)
@@ -25,7 +25,7 @@ app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 app.register_blueprint(users_route)
 app.register_blueprint(token_route)
 app.register_blueprint(resource_product_revenue_route)
-app.register_blueprint(products_route)
+# app.register_blueprint(products_route)
 
 """parser = reqparse.RequestParser()"""
 

@@ -527,3 +527,5 @@ Plugin 'FEEDBACK' is disabled.
 
  pip install python-dotenv pytest-dotenv  for pytest to detect env variable
 
+
+npm install @nextui-org/react
