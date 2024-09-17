@@ -12,7 +12,7 @@ const spinner_style = {
   top: '-18px'
 }
 
-const AddExpenditure: React.FC = ()=> {
+const AddRevenue: React.FC = ()=> {
   const [productName, setProductName] = useState('');
   const [quantity, setQuantity] = useState<number | string>(0);
   const [price, setPrice] = useState<number | string>(0);
@@ -36,13 +36,13 @@ const AddExpenditure: React.FC = ()=> {
     const product = {
     
       amount: Number(price),
-      category: category,
+      source: category,
       description: description,
       user_id: localStorage.getItem('alx_user_id')
     };
 
     try {
-        await makeRequest('expenditure', product, (err, data)=>{
+        await makeRequest('revenue', product, (err, data)=>{
           if (err) return setButtonState({...buttonState,showLoader:false,error:true, info:err.message ||err.error})
           
           setButtonState({...buttonState,showLoader:false,error:false, suc:true, info:data.message})
@@ -64,7 +64,7 @@ const AddExpenditure: React.FC = ()=> {
 
    return(
       <div className="w-4/5 mx-auto p-4 bg-white shadow-md rounded-lg text-white">
-      <h2 className="text-2xl font-bold mb-4 text-black ">Add New Expenditure</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black ">Add New Revenue</h2>
       {(buttonState.error|| buttonState.suc)  && <div role="alert" className={buttonState.error?'alert alert-error':'alert alert-success'}>
           <svg onClick={()=>setButtonState({...buttonState, error:false,suc:false})} xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>{buttonState.info}</span>
@@ -73,10 +73,10 @@ const AddExpenditure: React.FC = ()=> {
        
      
         <div>
-          <label className="block text-sm font-medium text-gray-700">Amoun spent</label>
+          <label className="block text-sm font-medium text-gray-700">Amoun reliase</label>
           <input
             type="number"
-            placeholder="Amoun spend"
+            placeholder="Amoun specnd"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -84,7 +84,7 @@ const AddExpenditure: React.FC = ()=> {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Category</label>
+          <label className="block text-sm font-medium text-gray-700">Source</label>
           <input
             type="text"
             placeholder="Category"
@@ -112,4 +112,4 @@ const AddExpenditure: React.FC = ()=> {
    )
 };
 
-export default AddExpenditure;
+export default AddRevenue;

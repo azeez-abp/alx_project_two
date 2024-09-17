@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation'
 import ListProduct from '@/components/product/ListProduct'
 import AddExpenditure from '@/components/expend/AddExpenditure'
 import ListExpenditure from '@/components/expend/ListExpenditure'
+import AddRevenue from '@/components/revenue/AddRevenue'
+import ListRevenue from '@/components/revenue/ListRevenue'
 
 
 const Dashboard = ({...props}) => {
@@ -27,6 +29,8 @@ const Dashboard = ({...props}) => {
                 {pathname === '/list-product' &&  <ListProduct/> }  
                 {pathname === '/add-expenditure' && <AddExpenditure /> } 
                 {pathname === '/list-expenditure' && <ListExpenditure /> } 
+                {pathname === '/add-revenue' && <AddRevenue /> } 
+                {pathname === '/list-revenue' && <ListRevenue /> } 
                
             </div> 
          </div>
