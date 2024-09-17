@@ -23,16 +23,13 @@ import {
 } from "react-icons/fi";
 import { makeRequest } from "@/request";
 
-// Define types for columns and products
-interface IProduct {
-  id: string;
-  name: string;
-  quantity: number;
-  price_per_unit: number;
+// Define types for columns and expenditures
+interface IExpenditure {
+
+  amount: number;
   category: string;
   description: string;
   created_at: Date;
-  status: "available" | "out_of_stock" | "discontinued";
 }
 
 // Define the structure of a column
@@ -42,39 +39,25 @@ interface Column {
   sortable?: boolean;
 }
 
-const statusOptions = [
-  { uid: "available", name: "Available" },
-  { uid: "out_of_stock", name: "Out of stock" },
-  { uid: "discontinued", name: "Discontinued" },
-];
-
 const columns: Column[] = [
-  // { uid: "id", name: "ID", sortable: false },
-  { uid: "name", name: "Name", sortable: true },
-  { uid: "quantity", name: "Quantity", sortable: true },
-  { uid: "price_per_unit", name: "Price Per Unit", sortable: true },
+
+  { uid: "amount", name: "Amount", sortable: true },
   { uid: "category", name: "Category", sortable: true },
   { uid: "description", name: "Description" },
   { uid: "created_at", name: "Created At", sortable: true },
-  { uid: "status", name: "Status", sortable: true },
   { uid: "actions", name: "Actions" }
 ];
 
-const statusColorMap: Record<string, "available" | "out_of_stock" | "discontinued"> = {
-  available: "available",
-  out_of_stock: "out_of_stock",
-  discontinued: "discontinued",
-};
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "quantity", "price_per_unit", "category", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["amount", "category", "actions"];
 
-export default function Tables() {
+export default function TableExpenditure() {
   const [filterValue, setFilterValue] = useState<string>("");
   const [selectedKeys, setSelectedKeys] = useState<Set<React.Key>>(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState<Set<string>>(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = useState<Set<string>>(new Set(["all", "available"]));
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [product, setProduct] = useState<IProduct[] | null>(null);
+  const [expenditure, setexpenditure] = useState<IExpenditure[] | null>(null);
   const [sortDescriptor, setSortDescriptor] = useState<{ column: string; direction: "ascending" | "descending" }>({
     column: "name",
     direction: "ascending",
@@ -89,26 +72,16 @@ export default function Tables() {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredProducts = product !== null ? product : [];
+    let filteredexpenditures = expenditure !== null ? expenditure : [];
 
     if (hasSearchFilter) {
-      filteredProducts = filteredProducts.filter((p) =>
-        p.name.toLowerCase().includes(filterValue.toLowerCase())
-      );
-    }
-    if (!statusFilter.has("all")) {
-      filteredProducts = filteredProducts.filter((p) => statusFilter.has(p.status));
-    }
-
-    if (Array.from(statusFilter).length !== statusOptions.length) {
-
-      filteredProducts = filteredProducts.filter((p) =>
-        Array.from(statusFilter).includes(p.status),
+      filteredexpenditures = filteredexpenditures.filter((p) =>
+        p.category.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
 
-    return filteredProducts;
-  }, [product, filterValue, statusFilter]);
+    return filteredexpenditures;
+  }, [expenditure, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -120,8 +93,8 @@ export default function Tables() {
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column as keyof IProduct];
-      const second = b[sortDescriptor.column as keyof IProduct];
+      const first = a[sortDescriptor.column as keyof IExpenditure];
+      const second = b[sortDescriptor.column as keyof IExpenditure];
       const cmp = first < second ? -1 : first > second ? 1 : 0;
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
@@ -129,7 +102,7 @@ export default function Tables() {
 
   const classNames = useMemo(
     () => ({
-      wrapper: ["max-h-[382px]", "max-w-4/5", "twraper", "product-table"],
+      wrapper: ["max-h-[382px]", "max-w-4/5", "twraper", "expenditure-table"],
       th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
       td: [
         "group-data-[first=true]:first:before:rounded-none",
@@ -142,27 +115,22 @@ export default function Tables() {
     []
   );
 
-  const fetchProduct = async () => {
-    await makeRequest('product', null, (err: any, data: any) => {
-      if (err) return console.error(err);
-      setProduct(data.data);
+  const fetchexpenditure = async () => {
+    await makeRequest('expenditure', null, (err: any, data: any) => {
+      if (err) return setexpenditure([]);
+      setexpenditure(data.data);
     }, "GET");
   }
 
   useEffect(() => {
-    fetchProduct();
+    fetchexpenditure();
   }, []);
 
-  const renderCell = useCallback((product: IProduct, columnKey: string) => {
-    const cellValue = product[columnKey as keyof IProduct];
+  const renderCell = useCallback((expenditure: IExpenditure, columnKey: string) => {
+    const cellValue = expenditure[columnKey as keyof IExpenditure];
 
     switch (columnKey) {
-      case "status":
-        return (
-          <Chip className="capitalize" color={statusColorMap[product.status]} size="sm" variant="flat">
-            {cellValue as string}
-          </Chip>
-        );
+    
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
@@ -232,35 +200,13 @@ export default function Tables() {
             style={{ width: "100%", height: "42px", border: "1px solid #fff", borderRadius: "7px", fontSize: "15.5px", padding: "0 2em" }}
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
+            placeholder="Search by category..."
             startContent={<SearchIcon style={{ position: "absolute", fontSize: "31px", top: "5px", left: "2px" }} />}
             value={filterValue}
             onClear={onClear}
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3 after-search">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Status Filter"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={onStatusChange}
-                style={{ width: '100%', background: '#333', color: '#fff', boxShadow: '0 0 6px 0', padding: '0 5px', borderRadius: '4px', display: 'flex' }}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
@@ -289,7 +235,7 @@ export default function Tables() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {product ? product.length : 0} products</span>
+          <span className="text-default-400 text-small">Total {expenditure ? expenditure.length : 0} expenditures</span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select className="bg-transparent outline-none text-default-400 text-small" style={{ width: '100%', background: '#333', color: '#fff', boxShadow: '0 0 6px 0', padding: '0 5px', borderRadius: '4px', display: 'flex' }} onChange={onRowsPerPageChange}>
@@ -301,13 +247,13 @@ export default function Tables() {
         </div>
       </div>
     );
-  }, [filterValue, statusFilter, visibleColumns, onRowsPerPageChange, product ? product.length : 0, onSearchChange, hasSearchFilter]);
+  }, [filterValue, visibleColumns, onRowsPerPageChange, expenditure ? expenditure.length : 0, onSearchChange, hasSearchFilter]);
 
   const bottomContent = useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          {selectedKeys.size === (product ? product.length : 0)
+          {selectedKeys.size === (expenditure ? expenditure.length : 0)
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
@@ -322,10 +268,10 @@ export default function Tables() {
         </div>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter, product]);
+  }, [selectedKeys, items.length, page, pages, hasSearchFilter, expenditure]);
 
   return (
-    product && (
+    expenditure && (
       <div className="flex w-[90%]">
         <Table
           aria-label="Example table with custom cells, pagination and sorting"
@@ -354,7 +300,7 @@ export default function Tables() {
             )}
           </TableHeader>
 
-          <TableBody emptyContent="No product found" items={sortedItems}>
+          <TableBody emptyContent="No expenditure found" items={sortedItems}>
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => <TableCell className={classNames.td}>{renderCell(item, columnKey)}</TableCell>}

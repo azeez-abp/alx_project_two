@@ -81,13 +81,13 @@ class UserLogin(Resource):
                 """update the session"""
                 print(data.user_id)
                 s = storage.get_instance()
-                up = s.execute(
+                s.execute(
                     update(Session)
                     .where(Session.session_id == data.user_id)
                     .values(session_token=json_data_refresh)
                 )
                 s.commit()
-                
+
             return response
         except Exception as e:
             return responseObject(False, True, {"message": str(e)})

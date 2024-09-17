@@ -24,6 +24,7 @@ export const CheckToken = ({...props}) => {
         setHasToken(true)
         
         localStorage.setItem('alx_token', data.token)
+        localStorage.setItem('alx_user_id', data.user_id)
 
       }
 

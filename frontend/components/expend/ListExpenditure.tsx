@@ -2,11 +2,11 @@
 import React from 'react'
 import TableExpenditure from '../table/TableExp'
 
-const ListProduct = () => {
+const ListExpenditure = () => {
   return (
        <TableExpenditure />
     
 )
 }
 
-export default ListProduct
+export default ListExpenditure

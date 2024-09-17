@@ -33,7 +33,7 @@ export default function Home(): any {
  const signIn = (e: any) :boolean => {
     e.preventDefault()
     setLoginState({...loginState,showLoader:true,error:false})
-     console.log( loginState.inputData['email'] ,"rtyuiop")
+  
     if (
       loginState.inputData['email'] === '')
       {

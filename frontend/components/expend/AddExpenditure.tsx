@@ -1,4 +1,4 @@
-// components/AddProduct.tsx
+// components/AddExpenditure.tsx
 'use client'
 import React, { useState } from 'react';
 import { makeRequest } from '@/request';
@@ -12,7 +12,7 @@ const spinner_style = {
   top: '-18px'
 }
 
-const AddProduct: React.FC = ()=> {
+const AddExpenditure: React.FC = ()=> {
   const [productName, setProductName] = useState('');
   const [quantity, setQuantity] = useState<number | string>(0);
   const [price, setPrice] = useState<number | string>(0);
@@ -34,16 +34,15 @@ const AddProduct: React.FC = ()=> {
     e.preventDefault();
     setButtonState({...buttonState,showLoader:true,error:false})
     const product = {
-      product_name: productName,
-      quantity: Number(quantity),
-      price_per_unit: Number(price),
+    
+      amount: Number(price),
       category: category,
       description: description,
       user_id: localStorage.getItem('alx_user_id')
     };
 
     try {
-        await makeRequest('product', product, (err, data)=>{
+        await makeRequest('expenditure', product, (err, data)=>{
           if (err) return setButtonState({...buttonState,showLoader:false,error:true, info:err.message ||err.error})
           
           setButtonState({...buttonState,showLoader:false,error:false, suc:true, info:data.message})
@@ -65,39 +64,19 @@ const AddProduct: React.FC = ()=> {
 
    return(
       <div className="w-4/5 mx-auto p-4 bg-white shadow-md rounded-lg text-white">
-      <h2 className="text-2xl font-bold mb-4 text-black ">Add New Products</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black ">Add New Expenditure</h2>
       {(buttonState.error|| buttonState.suc)  && <div role="alert" className={buttonState.error?'alert alert-error':'alert alert-success'}>
           <svg onClick={()=>setButtonState({...buttonState, error:false,suc:false})} xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <span>{buttonState.info}</span>
         </div>}
       <form onSubmit={handleSubmit} className="space-y-4">
+       
+     
         <div>
-          <label className="block text-sm font-medium text-gray-700">Product Name</label>
-          <input
-            type="text"
-            placeholder="Product Name"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Quantity</label>
+          <label className="block text-sm font-medium text-gray-700">Amoun spent</label>
           <input
             type="number"
-            placeholder="Quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Price per Unit</label>
-          <input
-            type="number"
-            placeholder="Price per Unit"
+            placeholder="Amoun specnd"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -133,4 +112,4 @@ const AddProduct: React.FC = ()=> {
    )
 };
 
-export default AddProduct;
+export default AddExpenditure;

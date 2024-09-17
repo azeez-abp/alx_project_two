@@ -43,6 +43,10 @@ class DBStorage:
                 f"mysql+mysqldb://{MYSQL_USER}:{MYSQL_PWD}@{MYSQL_HOST}/{MYSQL_DB}",
                 pool_pre_ping=True,
                 echo=False,  # Disable SQL echo in production for performance and security
+                pool_size=20,        # Increase the pool size
+                max_overflow=10,     # Allow overflow connections
+                pool_timeout=30,     # Timeout for acquiring a connection from the pool
+                pool_recycle=1800    # Recycle connections after 30 minutes
             )
 
             if APP_ENV == "test":

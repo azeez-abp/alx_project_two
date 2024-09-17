@@ -13,6 +13,6 @@ resource_product_revenue_route = Blueprint(
 # import the token_route  which is the blueprint
 resource_product_revenue_route_api = Api(resource_product_revenue_route)
 
-resource_product_revenue_route_api.add_resource(ExpenseResource, "expenses")
+resource_product_revenue_route_api.add_resource(ExpenseResource, "expenditure")
 resource_product_revenue_route_api.add_resource(ProductResource, "product")
 resource_product_revenue_route_api.add_resource(RevenueResource, "revenue")

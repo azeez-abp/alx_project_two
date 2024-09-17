@@ -13,6 +13,7 @@ from libs.upload_file import upload_from_multipart  # type: ignore
 from resouces import resource_product_revenue_route  # type: ignore
 from v1 import token_route  # type: ignore
 from v1.users import users_route  # type: ignore
+
 # from v1.products import products_route
 
 load_dotenv()

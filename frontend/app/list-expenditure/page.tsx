@@ -1,10 +1,11 @@
 import React from 'react'
 import Dashboard from '../dashboard/page'
-import AddEnpend from '@/components/expend/AddExpenditure'
+
+import ListExpenditure from '@/components/expend/ListExpenditure'
 const page = () => {
   return (
-    <Dashboard >
-      <AddEnpend/>
+    <Dashboard  > 
+      <ListExpenditure />
     </Dashboard>
   )
 }

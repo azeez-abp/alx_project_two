@@ -1,8 +1,10 @@
+from typing import Literal  # type: ignore
+
 from models.schemas.base import BaseModel  # type: ignore
 from models.storage_engine import storage  # type: ignore
 from models.storage_engine.db import Base  # type: ignore
-from sqlalchemy import Column, Date, Float, Integer, String, Text, Enum  # type: ignore
-from typing import Literal
+from sqlalchemy import Column  # type: ignore
+from sqlalchemy import Enum, Float, ForeignKey, Integer, String, Text
 
 """This table are created if the file that use them is added to root file app.py"""
 
@@ -22,12 +24,16 @@ class Product(BaseModel, Base):
     price_per_unit = Column(Float, nullable=False)
     category = Column(String(50), nullable=False)
     description = Column(Text)
-    status = Column(
+    user_id = Column(
+        String(60),
+        ForeignKey("users_account.user_id", ondelete="SET NULL"),
+        nullable=False,
+    )
+    status = Column(  # type: ignore
         Enum("available", "out_of_stock", "discontinued", name="product_status"),
         default="available",
-       # nullable=False
+        nullable=False,
     )
-
 
     def __init__(self, **kward):
         """Initializes user"""
@@ -38,7 +44,11 @@ class Expense(BaseModel, Base):
     __tablename__ = "expenses"
 
     id = Column(Integer, primary_key=True)
-    date = Column(Date, nullable=False)
+    user_id = Column(
+        String(60),
+        ForeignKey("users_account.user_id", ondelete="SET NULL"),
+        nullable=False,
+    )
     description = Column(String(225), nullable=False)
     amount = Column(Float, nullable=False)
     category = Column(String(50))
@@ -52,7 +62,11 @@ class Revenue(BaseModel, Base):
     __tablename__ = "revenue"
 
     id = Column(Integer, primary_key=True)
-    date = Column(Date, nullable=False)
+    user_id = Column(
+        String(60),
+        ForeignKey("users_account.user_id", ondelete="SET NULL"),
+        nullable=False,
+    )
     source = Column(String(120), nullable=False)
     description = Column(String(225), nullable=False)
     amount = Column(Float, nullable=False)

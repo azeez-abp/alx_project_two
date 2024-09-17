@@ -41,6 +41,7 @@ export default function Sidebar() {
         }
       ]
     },
+
     {
       ele: 'ul',
       text: 'Product',
@@ -56,7 +57,7 @@ export default function Sidebar() {
           text: 'List product',
           link: '/list-product'
         },
-        
+       
       ]
     },
     {
