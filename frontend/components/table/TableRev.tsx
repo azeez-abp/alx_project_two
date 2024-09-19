@@ -201,7 +201,7 @@ export default function TableRevenue() {
             isClearable
             className="w-full sm:max-w-[44%]"
             placeholder="Search by category..."
-            startContent={<SearchIcon style={{ position: "absolute", fontSize: "31px", top: "5px", left: "2px" }} />}
+            startContent={<SearchIcon style={{ position: "absolute", fontSize: "31px", top: "5px", left: "10px" }} />}
             value={filterValue}
             onClear={onClear}
             onValueChange={onSearchChange}

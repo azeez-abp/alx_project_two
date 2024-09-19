@@ -34,7 +34,7 @@ export default function Home(): any {
 
                 <div className="flex-1 w-50 text-left">
 
-                    <h1 style={{fontSize:'30px'}}>My Farm Insight</h1> 
+                    <h1 style={{fontSize:'30px'}}>My Farm Inventory Management System</h1> 
                     <div style={{width: '50%'}} className='text-start'>Monitor the activity on farm, Know the chemistry of  drug administered to farm animals
                       </div>
                 </div>
@@ -42,7 +42,7 @@ export default function Home(): any {
 
                 <div className="flex-1 w-50 text-left">
                 <h1 style={{fontSize:'30px'}}>Improve Farm Performance</h1> 
-                <div style={{ width: '50%'}} className='text-start'>Increase sale and generate more revenue for your farm
+                <div style={{ width: '50%'}} className='text-start'>Increase Confidence and prevent stealing
                       </div>
                 </div>
  
@@ -56,10 +56,9 @@ export default function Home(): any {
             <h1 style={{fontSize:'20px'}}> About</h1>
              <div>
               The project is a solution that enables farm owners <br/>
-              to monitor workers activities on the farm.<br/>
-              This will able the owner to know the quatitative values of drug<br/>
-              administered to the life stocks on the farm.
-            
+              to keep and track record of farm inventory<br/>
+               by gaining insight to farm product, revenue and expenses<br/>
+          
              </div>
          </div>
 
@@ -68,6 +67,7 @@ export default function Home(): any {
              <div>
               <ul>
                 <li><Link href={'https://github.com/azeez-abp/'}>Azeez adio</Link> </li>
+                <li><Link href={'https://github.com/azeez-abp/'}>Anaste</Link> </li>
               </ul>
              </div>
          </div>

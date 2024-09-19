@@ -3,9 +3,9 @@
 Contains class BaseModel
 """
 from datetime import datetime, timezone
-from sqlalchemy import select
+
 from models.storage_engine import storage
-from sqlalchemy import BigInteger, Column, DateTime  # type: ignore
+from sqlalchemy import BigInteger, Column, DateTime, select  # type: ignore
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
@@ -39,11 +39,10 @@ class BaseModel:
         storage.get_instance().add_all(users)
         storage.get_instance().commit()
         return users
-    
+
     @classmethod
     def query(cls_):
         storage.get_instance().scalar(select(cls_))
-
 
     # def delete(self):
     #     """delete the current instance from the storage"""

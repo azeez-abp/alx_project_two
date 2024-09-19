@@ -1,10 +1,10 @@
-
-from libs.response_body import responseObject  # type:ignore
-from libs.cookies import CookieHandler  # type:ignore
 from os import getenv
+
+from libs.cookies import CookieHandler  # type:ignore
 from libs.jwt import decode_, encodes_  # type:ignore
-from models.storage_engine import storage  # type:ignore
+from libs.response_body import responseObject  # type:ignore
 from models.schemas.general.transaction import Session  # type:ignore
+from models.storage_engine import storage  # type:ignore
 from sqlalchemy import select  # type: ignore
 
 
@@ -48,9 +48,7 @@ def auth(request):
 
             if data is not None:
                 print(data.session_token, "terterterter")
-                user_info = decode_(
-                    data.session_token, getenv("SECRET_KEY_REFRESH")
-                )
+                user_info = decode_(data.session_token, getenv("SECRET_KEY_REFRESH"))
 
                 if "error" in list(user_info[0].keys()):
                     return responseObject(False, True, "Session Expired"), 500
@@ -66,7 +64,11 @@ def auth(request):
                     responseObject(
                         True,
                         False,
-                        {"token": new_access_token, "token_status": "regenerated", "user_id": user_id},
+                        {
+                            "token": new_access_token,
+                            "token_status": "regenerated",
+                            "user_id": user_id,
+                        },
                     ),
                     200,
                 )
@@ -75,9 +77,9 @@ def auth(request):
         else:
             return (
                 responseObject(
-                    True, False, {"token": token_,
-                                  "token_status": "valid",
-                                  "user_id": user_id}
+                    True,
+                    False,
+                    {"token": token_, "token_status": "valid", "user_id": user_id},
                 ),
                 200,
             )

@@ -1,7 +1,8 @@
 # Introduction 
 
-# ALX PROJECT (Building Farm Inventory Application)
+# ALX PROJECT (Building Farm Inventory Mangement Application)
 
+[Azeez Adio](https://www.linkedin.com/in/adio-azeez-adeyori-a70430148/) <br>
 [Author LinkedIn Profile](https://www.linkedin.com/in/adio-azeez-adeyori-a70430148/) <br>
 
 ## Code quality tools 
@@ -10,24 +11,11 @@
 - mypy -> type checker
 - isort -> order import tool
 
-Must include link to your deployed site, final project blog article, author(s) LinkedIn
-# Installation
-- This  is a web based application the frontend and backend is deployed on different server
 
 ## To run the application locally, clone the repo
-### Frontend
-- Ensure you have install node v20.11 or more. this version run on node v20.11.0
-- cd to frontend and 
-```
-npm install
-npm run dev
-```
-### Backend
-- cd backend
-- Install  python 3.12.0 
-- install mysql database
-- Fill the value of .env-example and remane to .env
-- run ./deploy.sh
+
+- clone the application repository
+- run the ```setup``` script and follow the instruction
 
 # Usage
 - to use the application, you have to register as a user  and login to see the what the dashbaord look like
@@ -39,9 +27,7 @@ npm run dev
 # Related projects
 -  No related project yet
 #  Licensing
-- The project is licensed under MIT
-
-
+- The project will be licensed under MIT
 # Cookie issue
 
 ```

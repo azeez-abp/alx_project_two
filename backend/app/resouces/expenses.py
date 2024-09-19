@@ -1,10 +1,11 @@
 from flask import request
 from flask_restful import Resource, reqparse  # type: ignore
 from models.schemas.general.transaction import Expense  # type:ignore
-from  libs.auth import auth
+from libs.auth import auth
 from libs.response_body import responseObject
 from models.storage_engine import storage  # type: ignore
 from sqlalchemy import select, delete, update
+
 # parser = reqparse.RequestParser()
 # parser.add_argument("date", type=str, required=True, help="Date is required")
 # parser.add_argument(
@@ -29,21 +30,23 @@ class ExpenseResource(Resource):
             # Get the database instance from storage
             session = storage.get_instance()
 
-                # Select products with limit and offset for pagination
+            # Select products with limit and offset for pagination
             result = session.scalars(
                 select(Expense).limit(per_page).offset(offset_value)
             ).all()
 
             total_products = len(session.execute(select(Expense)).fetchall())
             data = {
-                  "data": [
-                      { 
+                "data": [
+                    {
                         "id": product.id,
                         "amount": product.amount,
                         "category": product.category,
                         "description": product.description,
                         "created_at": product.created_at.isoformat(),
-                    } for product in result],
+                    }
+                    for product in result
+                ],
                 "page": page,
                 "per_page": per_page,
                 "total_products": total_products,
@@ -51,11 +54,9 @@ class ExpenseResource(Resource):
             return responseObject(True, False, data)
 
         elif request.args.get("product_id"):
-            
-            product = (
-                storage.get_instance().scalar(
-                    select(Expense).where(Expense.id == request.args.get("product_id")))
-               
+
+            product = storage.get_instance().scalar(
+                select(Expense).where(Expense.id == request.args.get("product_id"))
             )
 
             if product:
@@ -92,7 +93,7 @@ class ExpenseResource(Resource):
                 for product in products
             ]
             return responseObject(True, False, {"data": data}), 200
-        
+
     def post(self):
         if not auth(request)[0].get("success"):
             return responseObject(False, True, "Unauthorized access"), 401
@@ -105,6 +106,6 @@ class ExpenseResource(Resource):
                 category=args.get("category", ""),
             )
             Expense.add([new_expense])
-            return responseObject(True, False, "product add successfully"), 201
+            return responseObject(True, False, "Expense add successfully"), 201
         except Exception as e:
-            return responseObject(False, True, f'{str(e)}'), 500
+            return responseObject(False, True, f"{str(e)}"), 500

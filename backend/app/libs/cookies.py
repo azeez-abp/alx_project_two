@@ -37,6 +37,7 @@ class CookieHandler:
         # ("SameSite must be 'Strict', 'Lax', or 'None'."
         try:
             expires = datetime.now(timezone.utc) + timedelta(seconds=max_age)
+            print(expires)
             response.set_cookie(
                 name,
                 value + "__" + str(expires.timestamp()),
