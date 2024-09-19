@@ -5,7 +5,7 @@ line-length = 88
 [tool.mypy]
 python_version = 3.8
 ignore_missing_imports = true
-exclude = "^test_.*\\.py$"
+exclude = "black/tests/**"
 disallow_untyped_calls = false
 disallow_untyped_defs = false
 
