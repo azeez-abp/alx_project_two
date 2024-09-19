@@ -67,7 +67,7 @@ export default function Home(): any {
              <div>
               <ul>
                 <li><Link href={'https://github.com/azeez-abp/'}>Azeez adio</Link> </li>
-                <li><Link href={'https://github.com/azeez-abp/'}>Anaste</Link> </li>
+                <li><Link href={'https://github.com/Ana123tase/'}>DUKUNDABERA Anastase</Link> </li>
               </ul>
              </div>
          </div>

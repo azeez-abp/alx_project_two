@@ -3,9 +3,9 @@
 # ALX PROJECT (Building Farm Inventory Mangement Application)
 
 [Azeez Adio](https://www.linkedin.com/in/adio-azeez-adeyori-a70430148/) <br>
-[Author LinkedIn Profile](https://www.linkedin.com/in/adio-azeez-adeyori-a70430148/) <br>
+[DUKUNDABERA Anastase](https://github.com/Ana123tase/) <br>
 
-## Code quality tools 
+## Code quality tools
 - black -> code formater
 - flake8 -> style checker
 - mypy -> type checker
