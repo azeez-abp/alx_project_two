@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta, timezone
 
 from flask import Flask  # type: ignore
-from libs.response_body import responseObject
+from app.libs.response_body import responseObject
 
 app = Flask(__name__)
 
@@ -46,18 +46,18 @@ class CookieHandler:
                 httponly=httponly,
                 samesite=samesite,  # put this in production
                 path="/",
-                domain="localhost",
+                # domain="localhost",
             )  # set for domain name
-            response.set_cookie(
-                name,
-                value + "__" + str(expires.timestamp()),
-                expires=expires,
-                secure=secure,
-                httponly=httponly,
-                samesite=samesite,  # put this in production
-                path="/",
-                domain="127.0.0.1",
-            )  # set for ip
+            # response.set_cookie(
+            #     name,
+            #     value + "__" + str(expires.timestamp()),
+            #     expires=expires,
+            #     secure=secure,
+            #     httponly=httponly,
+            #     samesite=samesite,  # put this in production
+            #     path="/",
+            #     domain="127.0.0.1",
+            # )  # set for ip
             return responseObject({True, False, "Cookie set succfully"})
         except Exception as e:
             return responseObject(False, True, f"Failed to set cookie. Error: {str(e)}")

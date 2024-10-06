@@ -6,14 +6,14 @@ from os import getenv
 from flasgger.utils import swag_from  # type: ignore
 from flask import jsonify, make_response, request  # type: ignore
 from flask_restful import Resource  # type: ignore
-from libs.cookies import CookieHandler  # type: ignore
-from libs.jwt import encodes_  # type: ignore
-from libs.password import check_password  # type: ignore
-from libs.request_to_json import convert_request_to_json  # type: ignore
-from libs.response_body import responseObject  # type: ignore
-from models.schemas.general.transaction import Session
-from models.schemas.users.user import Users  # type: ignore
-from models.storage_engine import storage  # type: ignore
+from app.libs.cookies import CookieHandler  # type: ignore
+from app.libs.jwt import encodes_  # type: ignore
+from app.libs.password import check_password  # type: ignore
+from app.libs.request_to_json import convert_request_to_json  # type: ignore
+from app.libs.response_body import responseObject  # type: ignore
+from app.models.schemas.general.transaction import Session
+from app.models.schemas.users.user import Users  # type: ignore
+from app.models.storage_engine import storage  # type: ignore
 from sqlalchemy import select, update  # type: ignore
 
 

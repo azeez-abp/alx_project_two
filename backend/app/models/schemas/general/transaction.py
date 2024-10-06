@@ -1,8 +1,8 @@
 from typing import Literal  # type: ignore
 
-from models.schemas.base import BaseModel  # type: ignore
-from models.storage_engine import storage  # type: ignore
-from models.storage_engine.db import Base  # type: ignore
+from app.models.schemas.base import BaseModel  # type: ignore
+from app.models.storage_engine import storage  # type: ignore
+from app.models.storage_engine.db import Base  # type: ignore
 from sqlalchemy import Column  # type: ignore
 from sqlalchemy import Enum, Float, ForeignKey, Integer, String, Text
 

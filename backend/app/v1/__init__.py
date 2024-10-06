@@ -2,7 +2,7 @@
 
 from flask import Blueprint  # type: ignore
 from flask_restful import Api  # type: ignore
-from v1.check_token import CheckToken  # type: ignore
+from app.v1.check_token import CheckToken  # type: ignore
 
 token_route = Blueprint("check_token_route", __name__, url_prefix="/api/v1/")
 # import the token_route  which is the blueprint

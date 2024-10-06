@@ -1,9 +1,9 @@
 from flask import request
 from flask_restful import Resource, reqparse  # type: ignore
-from models.schemas.general.transaction import Expense  # type:ignore
-from libs.auth import auth
-from libs.response_body import responseObject
-from models.storage_engine import storage  # type: ignore
+from app.models.schemas.general.transaction import Expense  # type:ignore
+from app.libs.auth import auth
+from app.libs.response_body import responseObject
+from app.models.storage_engine import storage  # type: ignore
 from sqlalchemy import select, delete, update
 
 # parser = reqparse.RequestParser()

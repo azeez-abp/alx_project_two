@@ -2,11 +2,11 @@ import random
 
 from flask import request
 from flask_restful import Resource  # type: ignore
-from libs.password import hash_password  # type: ignore
-from libs.response_body import responseObject  # type: ignore
-from libs.send_email import EmailService  # type: ignore
-from models.schemas.users.user import Users
-from models.storage_engine import storage
+from app.libs.password import hash_password  # type: ignore
+from app.libs.response_body import responseObject  # type: ignore
+from app.libs.send_email import EmailService  # type: ignore
+from app.models.schemas.users.user import Users
+from app.models.storage_engine import storage
 from sqlalchemy import select, update  # type: ignore
 
 

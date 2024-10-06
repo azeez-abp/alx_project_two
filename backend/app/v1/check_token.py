@@ -1,6 +1,6 @@
 from flask_restful import Resource  # type: ignore
 from flask import request
-from libs.auth import auth  # type: ignore
+from app.libs.auth import auth  # type: ignore
 
 
 class CheckToken(Resource):

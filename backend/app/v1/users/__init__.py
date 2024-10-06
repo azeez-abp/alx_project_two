@@ -2,14 +2,14 @@
 
 from flask import Blueprint  # type: ignore
 from flask_restful import Api  # type: ignore
-from v1.users.login import UserLogin  # type: ignore
-from v1.users.register import UserRegister  # type: ignore
-from v1.users.logout import LogoutResource  # type: ignore
-from v1.users.request_password_reset import (  # type: ignore
+from app.v1.users.login import UserLogin  # type: ignore
+from app.v1.users.register import UserRegister  # type: ignore
+from app.v1.users.logout import LogoutResource  # type: ignore
+from app.v1.users.request_password_reset import (  # type: ignore
     PasswordRest,
     RequestPasswordRest
 )
-from v1.users.upload import Upload  # type: ignore
+from app.v1.users.upload import Upload  # type: ignore
 
 users_route = Blueprint("users_route", __name__, url_prefix="/api/v1/users/")
 users_api = Api(users_route)

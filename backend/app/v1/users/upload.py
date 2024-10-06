@@ -5,8 +5,8 @@
 from flasgger.utils import swag_from  # type: ignore
 from flask import request  # type: ignore
 from flask_restful import Resource, marshal_with  # type: ignore
-from libs.upload_file import upload_image
-from v1.response_object import response_obj_template
+from app.libs.upload_file import upload_image
+from app.v1.response_object import response_obj_template
 
 
 class Upload(Resource):

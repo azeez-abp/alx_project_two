@@ -1,10 +1,10 @@
 from flask_restful import Resource  # type: ignore
-from models.schemas.general.transaction import Revenue  # type:ignore
+from app.models.schemas.general.transaction import Revenue  # type:ignore
 from flask import request  # type:ignore
-from libs.response_body import responseObject  # type:ignore
+from app.libs.response_body import responseObject  # type:ignore
 from sqlalchemy import select  # type:ignore
-from models.storage_engine import storage  # type:ignore
-from libs.auth import auth  # type:ignore
+from app.models.storage_engine import storage  # type:ignore
+from app.libs.auth import auth  # type:ignore
 
 # parser = reqparse.RequestParser()
 # parser.add_argument("date", type=str, required=True, help="Date is required")

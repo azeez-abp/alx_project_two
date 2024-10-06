@@ -1,12 +1,12 @@
 """Module for handling product resorces"""
 
 from flask import request  # type: ignore
-from libs.method_not_in_resource import MethodNotInResource  # type: ignore
-from libs.response_body import responseObject  # type: ignore
-from models.schemas.general.transaction import Product  # type: ignore
-from models.storage_engine import storage  # type: ignore
+from app.libs.method_not_in_resource import MethodNotInResource  # type: ignore
+from app.libs.response_body import responseObject  # type: ignore
+from app.models.schemas.general.transaction import Product  # type: ignore
+from app.models.storage_engine import storage  # type: ignore
 from sqlalchemy import select, delete, update
-from libs.auth import auth
+from app.libs.auth import auth
 
 """
 parser = reqparse.RequestParser() from flask_restful

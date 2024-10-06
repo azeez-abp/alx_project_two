@@ -4,7 +4,7 @@ Contains class BaseModel
 """
 from datetime import datetime, timezone
 
-from models.storage_engine import storage
+from app.models.storage_engine import storage
 from sqlalchemy import BigInteger, Column, DateTime, select  # type: ignore
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
