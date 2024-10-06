@@ -205,3 +205,8 @@ thead {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+
+.body{
+  padding: 40px
+}

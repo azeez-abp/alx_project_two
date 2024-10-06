@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+// Backend API path
 export const backend_path = "http://127.0.0.1:9393";
 
-// Axios default settings
+// Axios global configuration to allow credentials (cookies) to be sent
 axios.defaults.withCredentials = true;
 
 // Axios request function with improved error handling and debugging
@@ -26,6 +27,7 @@ export const makeRequest = async (
     headers: header_setting,
     data: data,
     url: `${backend_path}/api/v1/${url}`,  // Ensure this path is correct
+    withCredentials: true,  // Include credentials (cookies)
   };
 
   try {

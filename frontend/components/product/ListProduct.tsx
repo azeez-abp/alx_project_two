@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
-import TableExpenditure from '../table/TableExp'
+
+import Tables from '../table/Tables'
 
 const ListProduct = () => {
   return (
-       <TableExpenditure />
+       <Tables />
     
 )
 }

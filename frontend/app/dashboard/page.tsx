@@ -59,12 +59,12 @@ const Analystic: React.FC = () => {
     },
     {
       info: "Total Amount of Product",
-      value: product ? product.reduce((total, p) => total + p.quantity * p.price_per_unit, 0) : 0,
+      value: product ? product.reduce((total, p) => ((total + p.quantity * p.price_per_unit)/1), 0) : 0,
       icon: <FaProductHunt className="text-3xl mr-2" style={iconFontSize} />
     },
     {
       info: "Total Quantity of Product",
-      value: product ? product.reduce((total, p) => total + p.quantity, 0) : 0,
+      value: product ? product.reduce((total, p) => ((total + p.quantity)/1), 0) : 0,
       icon: <FaProductHunt className="text-3xl mr-2" style={iconFontSize} />
     },
   ];
