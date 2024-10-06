@@ -5,18 +5,23 @@ from os import environ, getenv, makedirs, path
 
 from dotenv import load_dotenv
 from flasgger import Swagger  # type: ignore
-from flask import jsonify, Flask, make_response, send_from_directory
+from flask import Flask, jsonify, make_response, send_from_directory
 from flask_cors import CORS  # type: ignore
 from flask_restful import Api, Resource  # type: ignore
 
-from app.v1.users import users_route  # Corrected import
+from app.libs.upload_file import (  # Assuming this is defined correctly
+    upload_from_multipart,
+)
+from app.resouces import (  # Assuming this is defined correctly
+    resource_product_revenue_route,
+)
 from app.v1 import token_route  # Assuming token_route is defined correctly
-from app.resouces import resource_product_revenue_route  # Assuming this is defined correctly
-from app.libs.upload_file import upload_from_multipart  # Assuming this is defined correctly
+from app.v1.users import users_route  # Corrected import
 
 load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
 
 def create_app(app_instance, testing: bool = False):
     """Create and configure the Flask app."""
@@ -63,7 +68,9 @@ def create_app(app_instance, testing: bool = False):
     # File download route
     @app.route("/uploads/<filename>")
     def download_file(filename):
-        return send_from_directory(app_instance.config["UPLOAD_FOLDER"], filename, as_attachment=True)
+        return send_from_directory(
+            app_instance.config["UPLOAD_FOLDER"], filename, as_attachment=True
+        )
 
     @app.route("/test_upload", methods=["POST"])
     def handel_upload():

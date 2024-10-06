@@ -6,8 +6,12 @@ from app.models.storage_engine.db import Base  # type: ignore
 from sqlalchemy import Column, DateTime, String  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 
-from app.models.schemas.general.address import Addresses  # Assuming Addresses is defined here
-from app.models.schemas.general.transaction import Product  # Ensure Product is imported after Users
+from app.models.schemas.general.address import (
+    Addresses,
+)  # Assuming Addresses is defined here
+from app.models.schemas.general.transaction import (
+    Product,
+)  # Ensure Product is imported after Users
 from app.models.schemas.general.transaction import Expense
 from app.models.schemas.general.transaction import Revenue
 
@@ -33,14 +37,10 @@ class Users(BaseModel, Base):
         "Product", backref="users", cascade="all, delete, delete-orphan"
     )
     expenses = relationship(
-        "Expense",
-        backref="users",
-        cascade="all, delete, delete-orphan"
+        "Expense", backref="users", cascade="all, delete, delete-orphan"
     )
     revenue = relationship(
-        "Revenue",
-        backref="users",
-        cascade="all, delete, delete-orphan"
+        "Revenue", backref="users", cascade="all, delete, delete-orphan"
     )
 
     def __init__(self, **kward):

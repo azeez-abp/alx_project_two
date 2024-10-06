@@ -5,15 +5,14 @@ from os import environ, getenv, makedirs, path
 
 from dotenv import load_dotenv
 from flasgger import Swagger  # type: ignore
-from flask import jsonify, Flask, make_response, send_from_directory
+from flask import Flask, jsonify, make_response, send_from_directory
 from flask_cors import CORS  # type: ignore
 from flask_restful import Api, Resource  # type: ignore
-# from libs.upload_file import upload_from_multipart  # type: ignore
-# from resouces import resource_product_revenue_route  # type: ignore
-# from v1 import token_route  # type: ignore
-# from v1.users import users_route  # type: ignore
-from app.libs.upload_file import upload_from_multipart  # type: ignore
+from resouces import resource_product_revenue_route  # type: ignore
+from v1 import token_route  # type: ignore
+from v1.users import users_route  # type: ignore
 
+from app.libs.upload_file import upload_from_multipart  # type: ignore
 
 load_dotenv()
 app = Flask(__name__)
@@ -47,7 +46,7 @@ def create_app(testing: bool = False):
     app.config["JWT_SECRET_KEY"] = getenv("JWT_SECRET_KEY")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
-    
+
     # Flask-Session config
     app.config["SESSION_TYPE"] = "filesystem"
     app.config["SESSION_PERMANENT"] = False
@@ -64,7 +63,9 @@ def create_app(testing: bool = False):
     # File download route
     @app.route("/uploads/<filename>")
     def download_file(filename):
-        return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
+        return send_from_directory(
+            app.config["UPLOAD_FOLDER"], filename, as_attachment=True
+        )
 
     @app.route("/test_upload", methods=["POST"])
     def handel_upload():

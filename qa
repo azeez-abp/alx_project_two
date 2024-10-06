@@ -7,10 +7,10 @@ set -eou pipefail
 script_directory=$(readlink -f "$0")
 script_directory=${script_directory%/*}
 
-black "$script_directory/app.py"
-flake8 "$script_directory/app.py"
-mypy "$script_directory/app.py"
-isort "$script_directory/app.py"
+black "$script_directory/backend/app2.py"
+flake8 "$script_directory/backend/app2.py"
+mypy "$script_directory/backend/app2.py"
+isort "$script_directory/backend/app2.py"
 
 # Function to process Python files
 process_files() {

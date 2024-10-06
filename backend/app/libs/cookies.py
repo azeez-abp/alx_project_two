@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta, timezone
 
 from flask import Flask  # type: ignore
+
 from app.libs.response_body import responseObject
 
 app = Flask(__name__)
@@ -37,7 +38,7 @@ class CookieHandler:
         # ("SameSite must be 'Strict', 'Lax', or 'None'."
         try:
             expires = datetime.now(timezone.utc) + timedelta(seconds=max_age)
-          
+
             response.set_cookie(
                 name,
                 value + "__" + str(expires.timestamp()),

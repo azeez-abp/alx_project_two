@@ -1,9 +1,10 @@
 #!/usr/bin/python
 """ holds class City"""
+from sqlalchemy import Column, ForeignKey, Integer, String  # type: ignore
+
 from app.models.schemas.base import BaseModel  # type: ignore
 from app.models.storage_engine import storage  # type: ignore
 from app.models.storage_engine.db import Base  # type: ignore
-from sqlalchemy import Column, ForeignKey, Integer, String  # type: ignore
 
 
 class Addresses(BaseModel, Base):
